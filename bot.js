@@ -1,18 +1,28 @@
+require("dotenv").config();
 const { Client, Intents } = require("discord.js");
 const fetch = require("node-fetch");
 
-const MIDJOURNEY_CHANNEL_ID = "1345196735886135356"; 
+const TOKEN = process.env.DISCORD_BOT_TOKEN;
+const MIDJOURNEY_CHANNEL_ID = process.env.MIDJOURNEY_CHANNEL_ID; // Set this in Railway
+const APPLICATION_ID = "936929561302675456"; // MidJourney Bot Application ID
+const COMMAND_ID = "938956540159881230"; // MidJourney /imagine command ID
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const client = new Client({
+    intents: [
+        Intents.FLAGS.GUILDS,
+        Intents.FLAGS.GUILD_MESSAGES,
+        Intents.FLAGS.MESSAGE_CONTENT,
+    ],
+});
 
 client.once("ready", () => {
-    console.log(`Logged in as ${client.user.tag}!`);
+    console.log(`✅ Logged in as ${client.user.tag}!`);
 });
 
 client.on("messageCreate", async (message) => {
     if (message.content.startsWith("!generate")) {
         let prompt = message.content.replace("!generate", "").trim();
-        if (!prompt) return message.reply("Please provide a prompt!");
+        if (!prompt) return message.reply("❌ Please provide a prompt!");
 
         try {
             const response = await fetch(`https://discord.com/api/v9/interactions`, {
@@ -22,17 +32,17 @@ client.on("messageCreate", async (message) => {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    type: 2,  // Type 2 = Application Command
-                    application_id: "936929561302675456",  // MidJourney Bot ID
-                    guild_id: message.guild.id,
-                    channel_id: MIDJOURNEY_CHANNEL_ID,
+                    type: 2, // Application Command
+                    application_id: APPLICATION_ID, // MidJourney Bot ID
+                    guild_id: message.guild.id, // Server where the command runs
+                    channel_id: MIDJOURNEY_CHANNEL_ID, // MidJourney listening channel
                     session_id: "random-session-id",
                     data: {
-                        id: "938956540159881230",  // /imagine Command ID
+                        id: COMMAND_ID, // /imagine command ID
                         name: "imagine",
                         type: 1,
-                        options: [{ name: "prompt", type: 3, value: prompt }]
-                    }
+                        options: [{ name: "prompt", type: 3, value: prompt }],
+                    },
                 }),
             });
 
