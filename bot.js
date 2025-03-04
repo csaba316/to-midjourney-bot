@@ -1,6 +1,6 @@
 import "dotenv/config";
 import pkg from "discord.js";  // Import entire discord.js package
-const { Client, Intents } = pkg;
+const { Client, GatewayIntentBits } = pkg;
 import fetch from "node-fetch";
 
 const TOKEN = process.env.DISCORD_BOT_TOKEN;
@@ -10,9 +10,9 @@ const COMMAND_ID = "938956540159881230";
 
 const client = new Client({
     intents: [
-        Intents.FLAGS.GUILDS,
-        Intents.FLAGS.GUILD_MESSAGES,
-        Intents.FLAGS.MESSAGE_CONTENT,
+        GatewayIntentBits.Guilds,
+        GatewayIntentBits.GuildMessages,
+        GatewayIntentBits.MessageContent,
     ],
 });
 
