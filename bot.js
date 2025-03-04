@@ -1,11 +1,12 @@
 import "dotenv/config";
-import { Client, Intents } from "discord.js";
+import pkg from "discord.js";  // Import entire discord.js package
+const { Client, Intents } = pkg;
 import fetch from "node-fetch";
 
 const TOKEN = process.env.DISCORD_BOT_TOKEN;
-const MIDJOURNEY_CHANNEL_ID = process.env.MIDJOURNEY_CHANNEL_ID; // Set this in Railway
-const APPLICATION_ID = "936929561302675456"; // MidJourney Bot Application ID
-const COMMAND_ID = "938956540159881230"; // MidJourney /imagine command ID
+const MIDJOURNEY_CHANNEL_ID = process.env.MIDJOURNEY_CHANNEL_ID;
+const APPLICATION_ID = "936929561302675456";
+const COMMAND_ID = "938956540159881230";
 
 const client = new Client({
     intents: [
@@ -57,7 +58,5 @@ client.on("messageCreate", async (message) => {
         }
     }
 });
-
-client.login(TOKEN);
 
 client.login(TOKEN);
