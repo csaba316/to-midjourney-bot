@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { Client, Intents } = require("discord.js");
-const fetch = require("node-fetch");
+import fetch from "node-fetch";
 
 const TOKEN = process.env.DISCORD_BOT_TOKEN;
 const MIDJOURNEY_CHANNEL_ID = process.env.MIDJOURNEY_CHANNEL_ID; // Set this in Railway
