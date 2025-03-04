@@ -1,5 +1,5 @@
-require("dotenv").config();
-const { Client, Intents } = require("discord.js");
+import "dotenv/config";
+import { Client, Intents } from "discord.js";
 import fetch from "node-fetch";
 
 const TOKEN = process.env.DISCORD_BOT_TOKEN;
@@ -33,12 +33,12 @@ client.on("messageCreate", async (message) => {
                 },
                 body: JSON.stringify({
                     type: 2, // Application Command
-                    application_id: APPLICATION_ID, // MidJourney Bot ID
-                    guild_id: message.guild.id, // Server where the command runs
-                    channel_id: MIDJOURNEY_CHANNEL_ID, // MidJourney listening channel
+                    application_id: APPLICATION_ID,
+                    guild_id: message.guild.id,
+                    channel_id: MIDJOURNEY_CHANNEL_ID,
                     session_id: "random-session-id",
                     data: {
-                        id: COMMAND_ID, // /imagine command ID
+                        id: COMMAND_ID,
                         name: "imagine",
                         type: 1,
                         options: [{ name: "prompt", type: 3, value: prompt }],
@@ -57,5 +57,7 @@ client.on("messageCreate", async (message) => {
         }
     }
 });
+
+client.login(TOKEN);
 
 client.login(TOKEN);
