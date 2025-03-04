@@ -1,8 +1,7 @@
 const { Client, Intents } = require("discord.js");
 const fetch = require("node-fetch");
 
-const TOKEN = "YOUR_DISCORD_BOT_TOKEN";
-const MIDJOURNEY_CHANNEL_ID = "YOUR_MIDJOURNEY_CHANNEL_ID"; 
+const MIDJOURNEY_CHANNEL_ID = "1345196735886135356"; 
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 
